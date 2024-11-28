@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "6500:6500"
+    depends_on:
+      - backend
+    networks:
+      ecotask-network:
+        aliases:
+          - frontend.ecotask.local
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "6432:6432"
+    env_file:
+      - ./backend/.env
+    environment:
+      - NODE_ENV=development
+      - HOST=0.0.0.0
+      - PORT=6432
+    depends_on:
+      - mysql
+    networks:
+      ecotask-network:
+        aliases:
+          - backend.ecotask.local
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "6433:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      ecotask-network:
+        aliases:
+          - mysql.ecotask.local
+
+networks:
+  ecotask-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:22-alpine
 
 RUN apk add --no-cache dumb-init
 
@@ -16,4 +16,5 @@ EXPOSE 6432
 
 ENTRYPOINT ["dumb-init", "--"]
 
-CMD ["node", "./build/bin/server.js"]
+# CMD ["node", "./build/bin/server.js"]
+CMD ["npm", "run", "dev"]

@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1>Dashboard</h1>
-    <Button>Test</Button>
+    <LineChart />
   </div>
 </template>
 
 <script setup lang="ts">
-import Button from "primevue/button"
+// import LineChart from "../components/LineChart.vue";
 
 </script>

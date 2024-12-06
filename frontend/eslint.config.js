@@ -13,6 +13,10 @@ export default [
     ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
   },
 
+  rules: {
+    "@typescript-eslint/no-require-imports": "error"
+  }
+
   ...pluginVue.configs['flat/essential'],
   ...vueTsEslintConfig(),
   skipFormatting,

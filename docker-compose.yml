@@ -1,41 +1,4 @@
 services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "6500:6500"
-    depends_on:
-      - backend
-    # volumes:
-    #   - ./frontend:/app 
-    networks:
-      ecotask-network:
-        aliases:
-          - frontend.ecotask.local
-
-  backend:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "6432:6432"
-    env_file:
-      - ./backend/.env
-    environment:
-      - NODE_ENV=development
-      - HOST=0.0.0.0
-      - PORT=6432
-    depends_on:
-      - mysql
-    # volumes:
-    #   - ./backend:/app
-    networks:
-      ecotask-network:
-        aliases:
-          - backend.ecotask.local
-    command: sh -c "npm run dev"
-
   mysql:
     image: mysql:8.0
     ports:
@@ -58,5 +21,3 @@ networks:
 
 volumes:
   mysql-data:
-  # backend:
-  # frontend:
